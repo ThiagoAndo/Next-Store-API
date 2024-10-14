@@ -1,5 +1,7 @@
+import { logResp } from "/js/testAPImodules/logResp.js";
+
 const myModal = new bootstrap.Modal(document.getElementById("myModal"));
-let thisMethod = null;
+let thisMethod = "GET";
 let endpoint = null;
 let thisHeaders = null;
 
@@ -13,7 +15,6 @@ document.querySelectorAll("#close").forEach((btn) => {
     }
   });
 });
-
 
 export function setFetch(route, end, type, auth) {
   switch (route) {
@@ -66,11 +67,22 @@ export function setFetch(route, end, type, auth) {
   }
 }
 
-export async function handleHTTP(obj) {
+export async function handleHTTP(obj, end = undefined, print = false) {
   let response = null;
+  endpoint = end || endpoint;
+
+  console.log("obj");
+  console.log(obj);
   try {
     if (thisMethod === "GET") {
       response = await fetch(`${endpoint}`);
+    } else if (end && thisMethod === "DELETE") {
+      response = await fetch(`${endpoint}`, {
+        method: thisMethod,
+        headers: {
+          ...thisHeaders,
+        },
+      });
     } else {
       response = await fetch(`${endpoint}`, {
         method: thisMethod,
@@ -80,47 +92,28 @@ export async function handleHTTP(obj) {
         },
       });
     }
+
     if (response?.ok) {
       const data = await response.json();
-      const print = document.querySelector(".log");
+      console.log(data);
+      console.log('data');
+
+      if (print) {
+        logResp(data, endpoint);
+      } else {
+        return data;
+      }
 
       if (data?.token) {
         localStorage.setItem("token", data.token);
+        localStorage.setItem("email", data.email_address);
         localStorage.setItem("id", data.id);
         setTimeout(() => {
           localStorage.clear();
         }, 60 * 60 * 1000);
       }
-
-      const entries = Object.entries(data);
-      let style = `${"text-primary"}`;
-      if (data?.message) style = `${"text-warning"}`;
-
-      print.innerHTML = ` <table class="table table-sm">
-   <thead>
-        <h2 class="fs-6 mb-4">API response </h2>
-      <tr>
-      <th class="text-body-secondary" scope="col">#</th>
-      <th class="text-body-secondary" scope="col">Object key</th>
-      <th class="text-body-secondary" scope="col">Object value</th>
-    </tr>
-  </thead>
-   <tbody>
-        ${entries
-          .map((e, i) => {
-            return `
-
-    <tr>
-      <th class=${style} scope="row">${i + 1}</th>
-      <td> <span class=${style} > ${e[0]}:</span></td>
-      <td class= "ml-20 text-break ${style}"> ${e[1]}</td>
-    </tr>
-`;
-          })
-          .join("")}
-            </tbody></table>`;
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 }

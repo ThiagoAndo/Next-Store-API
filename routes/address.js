@@ -18,7 +18,7 @@ router.get("/:id", (req, res) => {
   if (add.length > 0) {
     res.status(200).json(add);
   } else {
-    res.status(404).json({ message: "not registered" });
+    res.status(200).json({ message: "not registered" });
   }
 });
 router.use(checkAuth);
@@ -73,7 +73,7 @@ router.patch("/", async (req, res) => {
           .status(201)
           .json({ message: `Updated address with id ${address.id}` })
       : res
-          .status(404)
+          .status(200)
           .json({ message: `Could not update address with id ${address.id}` });
     return;
   } else {

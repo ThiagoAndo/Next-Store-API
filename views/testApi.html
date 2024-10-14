@@ -21,13 +21,33 @@
       box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
     }
 
-
+    /* rendered dinamicly by crateForm.js */
     .log {
       display: flex;
       flex-direction: column;
       gap: .5rem;
     }
-    .modal-header{
+
+    .dropup {
+      width: 70%;
+      display: flex;
+      margin: auto;
+    }
+
+    .dropup>button {
+      width: 100%;
+    }
+
+    .dropup .dropdown-toggle::after {
+      rotate: 180deg;
+    }
+
+    .dropdown-menu {
+      top: 45px;
+    }
+
+    /* ========================================= */
+    .modal-header {
       justify-content: space-between;
     }
   </style>
@@ -102,7 +122,8 @@
           </button>
         </div>
         <div class="modal-body">
-         You need a <span class="text-primary"> token</span> for this action.<br /><br /> You may either retrive an existing user or register a new one.
+          You need a <span class="text-primary"> token</span> for this action.<br /><br /> You may either retrive an
+          existing user or register a new one.
         </div>
         <div class="modal-footer">
           <button type="button" id="close" class="btn btn-primary">Close</button>
@@ -122,27 +143,58 @@
     <h5 class="display-6 fw-bold text-white title">User Endpoints</h5>
     <div class="col-lg-12 mx-auto mt-4">
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button type="button" id="get" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold user-btn">Sign in</button>
-        <button type="button" id="new" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold user-btn">Sign up</button>
-        <button type="button" id="password" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold user-btn">Change password</button>
-        <button type="button" id="update" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold user-btn">Update user</button>
-        <button type="button" id="delete" class="btn btn-danger btn-lg px-4 me-sm-3 fw-bold user-btn">Delete user</button>
+        <button type="button" id="get" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold user-btn">Sign
+          in</button>
+        <button type="button" id="new" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold user-btn">Sign
+          up</button>
+        <button type="button" id="password" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold user-btn">Change
+          password</button>
+        <button type="button" id="update" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold user-btn">Update
+          user</button>
+        <button type="button" id="delete" class="btn btn-danger btn-lg px-4 me-sm-3 fw-bold user-btn">Delete
+          user</button>
       </div>
     </div>
   </div>
   <div class="container col-xl-10 col-xxl-8 px-4 ">
     <div class="row align-items-center g-lg-5 py-5">
       <div class="col-md-10 mx-auto col-lg-6 my-5">
-        <!-- Form -->
+        <!-- User Form -->
         <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" method="GET" id="user">
+
         </form>
       </div>
     </div>
   </div>
 
+  <div class="b-example-divider"></div>
 
-
-
+  <!-- Fetch buttons-->
+  <div class="text-secondary px-4 pt-5 text-center">
+    <h5 class="display-6 fw-bold text-white title">Product Endpoints</h5>
+    <div class="col-lg-12 mx-auto mt-4">
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" id="all" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold pro-btn">A few
+          Products</button>
+        <button type="button" id="category"
+          class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold pro-btn">Categories</button>
+        <button type="button" id="byC" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold pro-btn">By
+          categoty</button>
+        <button type="button" id="byI" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold pro-btn">By id</button>
+        <button type="button" id="new" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold pro-btn">New</button>
+        <button type="button" id="delete" class="btn btn-danger btn-lg px-4 me-sm-3 fw-bold pro-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+  <div class="container col-xl-10 col-xxl-8 px-4 ">
+    <div class="row align-items-center g-lg-5 py-5">
+      <div class="col-md-10 mx-auto col-lg-6 my-5">
+        <!-- User Form -->
+        <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary" method="GET" id="pro">
+        </form>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -158,7 +210,7 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <script src="/js/testAPI.js" type="module"></script>
-  
+
 
 </body>
 

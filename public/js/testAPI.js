@@ -1,20 +1,39 @@
 import { createForm } from "/js/testAPImodules/createForm.js";
+import { dropDown } from "/js/testAPImodules/createDropDown.js";
 import { setFetch } from "/js/testAPImodules/HTTP.js";
 import { mode } from "/js/testAPImodules/mode.js";
+import { modal } from "/js/testAPImodules/modal.js";
 
 const newUser = ["first_name", "last_name", "email_address", "password"];
 const getUser = ["email", "password"];
 const password = ["id", "password"];
 const update = ["id", "first_name", "last_name", "email_address"];
 const deleteUser = ["id"];
+const newProduct = [
+  "id",
+  "title",
+  "description",
+  "price",
+  "discountPercentage",
+  "rating",
+  "stock",
+  "brand",
+  "category",
+  "thumbnail",
+  "image_1",
+  "image_2",
+];
 
-localStorage.clear();
+// localStorage.clear();
 mode();
-const myModal = new bootstrap.Modal(document.getElementById("myModal"));
+
 const userBtn = document.querySelectorAll(".user-btn");
+const proBtn = document.querySelectorAll(".pro-btn");
 
 userBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
+    const id = localStorage.getItem("id");
+
     const endPoint = btn.getAttribute("id");
     switch (endPoint) {
       case "get":
@@ -26,17 +45,17 @@ userBtn.forEach((btn) => {
         setFetch("user", "new", "p", false);
         break;
       case "password":
-        alertId();
+        id && modal("user");
         createForm("user", password, "Sing in");
         setFetch("user", "password", "pc", true);
         break;
       case "update":
-        alertId();
+        id && modal("user");
         createForm("user", update, "Sing in");
         setFetch("user", "", "pc", true);
         break;
       case "delete":
-        alertId();
+        id && modal("user");
         createForm("user", deleteUser, "Delete");
         setFetch("user", "", "d", true);
         break;
@@ -46,65 +65,38 @@ userBtn.forEach((btn) => {
   });
 });
 
-function alertId() {
-  const id = localStorage.getItem("id");
-  if (id) {
-    document.querySelector(".modal-title").textContent =
-      "You need to copy this id";
-    document.querySelector(".modal-body").innerHTML =
-      "Last id retrived from database: " +
-      `<span class="text-primary">${id}</span>`;
-    document.querySelector(".modal-footer").innerHTML = `<span></span>`;
-    myModal.show();
-  }
-}
+proBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const id = localStorage.getItem("id");
 
-// async function handleLogin(user) {
-//   // console.log(`http//localhost:8080/${endpoint}`);
-//   try {
-//     const response = await fetch(`${endpoint}`, {
-//       method: "POST",
-//       body: JSON.stringify(user),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-
-//     if (response.ok) {
-//       const data = await response.json();
-//       const print = document.querySelector(".log");
-
-//       console.log(data);
-
-//       const entries = Object.entries(data);
-//       let style = `${"text - primary"}`;
-//       if (data?.message) style = `${"text-danger"}`;
-
-//       print.innerHTML = ` <table class="table table-sm table-dark">
-//    <thead>
-//         <h2 class="fs-6 mb-4">API response </h2>
-//       <tr>
-//       <th class="text-body-secondary" scope="col">#</th>
-//       <th class="text-body-secondary" scope="col">Object key</th>
-//       <th class="text-body-secondary" scope="col">Object value</th>
-//     </tr>
-//   </thead>
-//    <tbody>
-//         ${entries
-//           .map((e, i) => {
-//             return `
-
-//     <tr>
-//       <th class=${style} scope="row">${i + 1}</th>
-//       <td> <span class=${style} > ${e[0]}:</span></td>
-//       <td class= "ml-20 text-break ${style}"> ${e[1]}</td>
-//     </tr>
-// `;
-//           })
-//           .join("")}
-//             </tbody></table>`;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+    const endPoint = btn.getAttribute("id");
+    switch (endPoint) {
+      case "all":
+        createForm("pro", [], "Fetch");
+        setFetch("product", "", "g", false);
+        break;
+      case "category":
+        createForm("pro", [], "Fetch");
+        setFetch("product", "categories", "g", false);
+        break;
+      case "byC":
+        setFetch("product", "", "g", false);
+        dropDown();
+        break;
+      case "byI":
+        createForm("pro", deleteUser, "Fetch", "products/byid/");
+        setFetch("product", "byid/", "g", false);
+        break;
+      case "new":
+        createForm("pro", newProduct, "New product");
+        setFetch("product", "", "p", true);
+        break;
+      case "delete":
+        createForm("pro", deleteUser, "Delete", "products/");
+        setFetch("product", "", "d", true);
+        break;
+      default:
+        console.log("Something wrong with btn " + endPoint);
+    }
+  });
+});

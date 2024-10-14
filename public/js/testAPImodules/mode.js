@@ -24,7 +24,6 @@ function titleMode() {
       t.classList.remove("text-dark");
       t.classList.add("text-white");
     }
-    console.log("class");
     console.log(t.getAttribute("class"));
   });
 }

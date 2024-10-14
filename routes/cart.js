@@ -13,7 +13,7 @@ router.get("/:id", async (req, res) => {
   items = readAction("cart", "user_id=? AND bought=?", [user_id, 0]);
   items.length > 0
     ? res.status(200).json({ items })
-    : res.status(404).json({ message: "Not found" });
+    : res.status(200).json({ message: "Not found" });
 });
 router.use(checkAuth);
 router.get("/purchased/params", async (req, res) => {
@@ -27,10 +27,10 @@ router.get("/purchased/params", async (req, res) => {
     ]);
     items.length > 0
       ? res.status(200).json({ items })
-      : res.status(404).json({ message: "Not found" });
+      : res.status(200).json({ message: "Not found" });
     return;
   }
-  res.status(404).json({ message: "Not found" });
+  res.status(200).json({ message: "Not found" });
 });
 router.post("/", async (req, res) => {
   const id = req.body.item.id + "";
@@ -68,7 +68,7 @@ router.patch("/", async (req, res) => {
     ]);
     ret?.changes
       ? res.status(200).json({ message: `Updated item with id ${item_id}` })
-      : res.status(404).json({ message: `Not found` });
+      : res.status(200).json({ message: `Not found` });
     return;
   } else {
     res.status(407).json({
@@ -81,7 +81,7 @@ router.delete("/", async (req, res) => {
     let ret = deleleteCart(req.body.op, req.body.cart);
     ret?.changes
       ? res.status(200).json({ message: `Cart deleted` })
-      : res.status(404).json({ message: `Not found` });
+      : res.status(200).json({ message: `Not found` });
     return;
   } else {
     res.status(407).json({

@@ -18,21 +18,28 @@ router.get("/categories", async (req, res) => {
 });
 router.get("/bycategories", async (req, res) => {
   const { category } = req.query;
+  const images = [];
   let queryLen = "category = ?";
   let products = null;
   if (Array.isArray(category)) {
     queryLen = Array(category.length).fill("category = ?");
     queryLen = queryLen.toString().replaceAll(",", " OR ");
     products = readAction("products", `${queryLen}`, category);
+    products.forEach((p) => {
+      images.push(...readAction("images", `item_id=?`, [p.id]));
+    });
   } else {
     products = readAction("products", `${queryLen}`, [category]);
+    products.forEach((p) => {
+      images.push(...readAction("images", `item_id=?`, [p.id]));
+    });
   }
 
   if (products?.length > 0) {
-    res.status(200).json(products);
+    res.status(200).json({ products, images });
     return;
   } else {
-    res.status(404).json({ message: `No product found` });
+    res.status(200).json({ message: `No product found` });
   }
 });
 router.get("/byid/:id", async (req, res) => {
@@ -42,18 +49,19 @@ router.get("/byid/:id", async (req, res) => {
   products?.length
     ? res.status(200).json({ products, images })
     : res
-        .status(404)
+        .status(200)
         .json({ message: `Could not found product with id: ${id}` });
 });
 router.use(checkAuth);
+
 router.post("/", (req, res) => {
-  if (isCorret(11, req.body) && req.body?.images.length > 2) {
+  if (isCorret(11, req?.body) && req.body?.images.length >= 2) {
     const ret = insertP([req.body]);
     if (ret?.message) {
       res.status(400).json(ret);
       return;
     } else {
-      restore();
+      // restore();
       res.status(201).json({ message: "Product created" });
       return;
     }
@@ -63,6 +71,7 @@ router.post("/", (req, res) => {
     });
   }
 });
+
 router.delete("/:id", async (req, res) => {
   deleteAction("images", "item_id=?", [req.params.id]);
   let ret = deleteAction("products", "id=?", [req.params.id]);
@@ -74,7 +83,7 @@ router.delete("/:id", async (req, res) => {
     return;
   } else {
     res
-      .status(404)
+      .status(200)
       .json({ message: `Could not delete product with id ${req.params.id}` });
   }
 });

@@ -47,7 +47,7 @@ router.get("/:id", (req, res) => {
   if (ret.length > 0) {
     res.status(200).json(ret);
   } else {
-    res.status(404).json({ message: "No order found" });
+    res.status(200).json({ message: "No order found" });
   }
 });
 

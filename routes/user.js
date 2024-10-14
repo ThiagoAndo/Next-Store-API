@@ -58,7 +58,7 @@ router.patch("/", async (req, res) => {
     } else if (userRet === undefined) {
       const isOk = isDataOk(user);
       if (isOk) {
-        res.status(404).json({
+        res.status(200).json({
           message: isOk.message,
         });
         return;
@@ -71,7 +71,7 @@ router.patch("/", async (req, res) => {
     ) {
       const isOk = isDataOk(user);
       if (isOk) {
-        res.status(404).json({
+        res.status(200).json({
           message: isOk,
         });
         return;
@@ -90,7 +90,7 @@ router.patch("/", async (req, res) => {
         ? res
             .status(200)
             .json({ message: `Updated user\`s detail with id ${user.id}` })
-        : res.status(404).json({
+        : res.status(200).json({
             message: `Could not update user\`s detail with id ${user.id}`,
           });
       return;
@@ -117,7 +117,7 @@ router.patch("/password", async (req, res) => {
       ? res.status(200).json({
           message: `Updated user\`s password detail with id ${user.id}`,
         })
-      : res.status(404).json({
+      : res.status(200).json({
           message: `Could not update user\`s password with id ${user.id}`,
         });
   } else {
@@ -138,7 +138,7 @@ router.delete("/", async (req, res) => {
     ret.changes > 0
       ? res.status(200).json({ message: `Deleted user with id ${user.id}` })
       : res
-          .status(404)
+          .status(200)
           .json({ message: `Could not delete user with id ${user.id}` });
     return;
   } else {
@@ -157,7 +157,7 @@ router.delete("/", async (req, res) => {
 //   ret.changes > 0
 //     ? res.status(200).json({ message: `Deleted user with id ${user.id}` })
 //     : res
-//         .status(404)
+//         .status(200)
 //         .json({ message: `Could not delete user with id ${user.id}` });
 // });
 module.exports = router;
