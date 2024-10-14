@@ -54,12 +54,12 @@
         <h2 class="get">GET /all products</h2>
         <p>Returns all products.</p>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="get">GET</span>
             https://next-store-api-62m2.onrender.com/products</code>
           </div>
-          <p><strong>Example Response:</strong></p>
+          <p><strong>Example response:</strong></p>
           <div class="response">
             <pre><code>{
     "products": [
@@ -89,12 +89,12 @@
         <h2 class="get">GET /product categories</h2>
         <p>Returns all categories.</p>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="get">GET</span>
             https://next-store-api-62m2.onrender.com/products/categories</code>
           </div>
-          <p><strong>Example Response:</strong></p>
+          <p><strong>Example response:</strong></p>
           <div class="response">
             <pre><code>[
     {
@@ -126,12 +126,12 @@
           </li>
         </ul>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="get">GET</span>
             https://next-store-api-62m2.onrender.com/products/bycategorie?category=mens-shoes&category=mens-watches</code>
           </div>
-          <p><strong>Example Response:</strong></p>
+          <p><strong>Example response:</strong></p>
           <div class="response">
             <pre><code>[
         {
@@ -158,13 +158,13 @@
         <h2 class="post">POST/product</h2>
         <p>Create a new product.</p>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="post">POST</span>
             https://next-store-api-62m2.onrender.com/products</code>
             <br />
             <br />
-            <p><strong>Request Body:</strong></p>
+            <p><strong>ERequest body:</strong></p>
             <pre><code>{
 "id":"234",
 "title":"Super UNIQUE iPhone 334 ",
@@ -187,13 +187,13 @@
           </div>
           <p>
             <br />
-            <strong>Example Response <span class="get">201</span>:</strong>
+            <strong>Example response <span class="get">201</span>:</strong>
           </p>
           <div class="response">
             <pre><code>{ message: "Product created" }</code></pre>
           </div>
           <br />
-          <strong>Example Response <span class="delete">407</span>:</strong>
+          <strong>Example response <span class="delete">407</span>:</strong>
           </p>
           <div class="response">
             <pre><code>{ message: "UNIQUE constraint failed: products.id"}</code></pre>
@@ -209,19 +209,19 @@
         <h2 class="delete">DELETE /product</h2>
         <p>Delete a product.</p>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="delete">DELETE</span>
             https://next-store-api-62m2.onrender.com/products/{PRODUCT ID}</code>
           </div>
           <br />
-          <p>Example Response <span class="get">200</span>:</p>
+          <p>Example response <span class="get">200</span>:</p>
           <div class="response">
             <pre><code>{ message: "Deleted product with id XXXX" }</code></pre>
           </div>
         </div>
         <br />
-        <p>Example Response <span class="delete">404</span>:</p>
+        <p>Example response <span class="delete">404</span>:</p>
         <div class="response">
           <pre><code>{ message: "Could not delete product with id XXXX"}</code></pre>
         </div>
@@ -233,7 +233,12 @@
     crossorigin="anonymous"></script>
   <script src="../js/script.js"></script>
 </body>
-<footer>Copyright © <a href="# ">Thiago Ando de Freitas</a></footer>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2024 <a href="# ">Thiago Ando de Freitas</a></span>
+    </div>
+  </footer>
+
 </div>
 
 </html>

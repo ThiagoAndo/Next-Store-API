@@ -1,43 +1,63 @@
-const userBtn = document.querySelectorAll(".user-btn");
-const arr = ["first_name", "last_name", "email", "password"];
-const arr2 = ["email", "password"];
-
 import { createForm } from "/js/testAPImodules/createForm.js";
 import { setFetch } from "/js/testAPImodules/HTTP.js";
 import { mode } from "/js/testAPImodules/mode.js";
 
-mode();
+const newUser = ["first_name", "last_name", "email_address", "password"];
+const getUser = ["email", "password"];
+const password = ["id", "password"];
+const update = ["id", "first_name", "last_name", "email_address"];
+const deleteUser = ["id"];
 
-// var t = 2
-// if (t === 2) {
-//   //;
-// }
+localStorage.clear();
+mode();
+const myModal = new bootstrap.Modal(document.getElementById("myModal"));
+const userBtn = document.querySelectorAll(".user-btn");
 
 userBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
     const endPoint = btn.getAttribute("id");
     switch (endPoint) {
       case "get":
-        createForm("user", arr2, "Sing up");
+        createForm("user", getUser, "Sing in");
         setFetch("user", "get", "p", false);
-
         break;
       case "new":
-        createForm("user", arr, "Sing in");
-        setFetch("user", "get", "p", false);
-
+        createForm("user", newUser, "Sing up");
+        setFetch("user", "new", "p", false);
         break;
-      case "address":
-        endpoint = `add/${end}`;
+      case "password":
+        alertId();
+        createForm("user", password, "Sing in");
+        setFetch("user", "password", "pc", true);
         break;
-      case "cart":
-        endpoint = `cart/${end}`;
+      case "update":
+        alertId();
+        createForm("user", update, "Sing in");
+        setFetch("user", "", "pc", true);
+        break;
+      case "delete":
+        alertId();
+        createForm("user", deleteUser, "Delete");
+        setFetch("user", "", "d", true);
         break;
       default:
-        endpoint = `test/${end}`;
+        console.log("Something wrong with btn " + endPoint);
     }
   });
 });
+
+function alertId() {
+  const id = localStorage.getItem("id");
+  if (id) {
+    document.querySelector(".modal-title").textContent =
+      "You need to copy this id";
+    document.querySelector(".modal-body").innerHTML =
+      "Last id retrived from database: " +
+      `<span class="text-primary">${id}</span>`;
+    document.querySelector(".modal-footer").innerHTML = `<span></span>`;
+    myModal.show();
+  }
+}
 
 // async function handleLogin(user) {
 //   // console.log(`http//localhost:8080/${endpoint}`);

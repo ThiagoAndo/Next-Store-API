@@ -30,7 +30,7 @@ async function getUser(user) {
         userRet.token = authToken;
         return userRet;
       } else {
-        error.message = "Wrong Password";
+        error.message = "Wrong password";
         return error;
       }
     }

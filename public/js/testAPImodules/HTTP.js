@@ -1,14 +1,19 @@
-var myModal = new bootstrap.Modal(document.getElementById("myModal"));
+const myModal = new bootstrap.Modal(document.getElementById("myModal"));
 let thisMethod = null;
 let endpoint = null;
 let thisHeaders = null;
 
 // <!-- Modal -->
-document.querySelectorAll(".close").forEach((btn) => {
+document.querySelectorAll("#close").forEach((btn) => {
   btn.addEventListener("click", () => {
     myModal.hide();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      location.reload();
+    }
   });
 });
+
 
 export function setFetch(route, end, type, auth) {
   switch (route) {
@@ -27,8 +32,6 @@ export function setFetch(route, end, type, auth) {
     default:
       endpoint = `test/${end}`;
   }
-  console.log(endpoint);
-  console.log("endpoint");
   switch (type) {
     case "g":
       thisMethod = "GET";
@@ -69,8 +72,6 @@ export async function handleHTTP(obj) {
     if (thisMethod === "GET") {
       response = await fetch(`${endpoint}`);
     } else {
-      console.log({ ...thisHeaders });
-      console.log("url");
       response = await fetch(`${endpoint}`, {
         method: thisMethod,
         body: JSON.stringify(obj),
@@ -85,11 +86,15 @@ export async function handleHTTP(obj) {
 
       if (data?.token) {
         localStorage.setItem("token", data.token);
+        localStorage.setItem("id", data.id);
+        setTimeout(() => {
+          localStorage.clear();
+        }, 60 * 60 * 1000);
       }
 
       const entries = Object.entries(data);
       let style = `${"text-primary"}`;
-      if (data?.message) style = `${"text-danger"}`;
+      if (data?.message) style = `${"text-warning"}`;
 
       print.innerHTML = ` <table class="table table-sm">
    <thead>

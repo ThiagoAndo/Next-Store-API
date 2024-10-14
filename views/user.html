@@ -55,12 +55,12 @@
         <h2 class="post">POST /register</h2>
         <p>Registers a new user. </p>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="post">POST</span> https://next-store-api-62m2.onrender.com/user/new</code>
             <br />
             <br />
-            <p><strong>Request Body:</strong></p>
+            <p><strong>Request body:</strong></p>
             <pre><code>{
      "first_name": "Stephen",
      "last_name":"King",
@@ -68,7 +68,7 @@
      "password":"12345678"
 }</code></pre>
           </div>
-          <p><strong>Example Response <span class="get">201</span>:</strong></p>
+          <p><strong>Example response <span class="get">201</span>:</strong></p>
           <div class="response">
             <pre><code>{
     "first_name": "Stephen",
@@ -80,7 +80,7 @@
    <span style="color:black;"> "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0ZXBoZW5raW5nQGxvcmVtLmNvbSIsImlhdCI6MTcyMDk3NzU5NywiZXhwIjoxNzIwOTgxMTk3fQ.YyJ35C73_1hULnTJfszzZmj3I2kSlNQnRDp2nHrhug8"</span>
 }</code></pre>
           </div>
-          <strong>Example Response <span class="delete">404</span>:</strong>
+          <strong>Example response <span class="delete">404</span>:</strong>
           <div class="response">
             <pre><code>{ message: "Incomplete Body" }</code></pre>
             <pre><code>{ message: "Email already registered"}</code></pre>
@@ -97,19 +97,19 @@
         <h2 class="post">POST /retrieve</h2>
         <p>Retrieve an existing user. </p>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="post">POST</span> https://next-store-api-62m2.onrender.com/user/get</code>
             <br />
             <br />
-            <p><strong>Request Body:</strong></p>
+            <p><strong>Request body:</strong></p>
             <pre><code>{
      "email_address":"stephenking@lorem.com",
      "password":"12345678"
 }</code></pre>
           </div>
           <br />
-          <p><strong>Example Response <span class="get">200</span>:</strong></p>
+          <p><strong>Example response <span class="get">200</span>:</strong></p>
           <div class="response">
             <pre><code>{
     "first_name": "Stephen",
@@ -122,7 +122,7 @@
 }</code></pre>
           </div>
           <br />
-          <strong>Example Response <span class="delete">404</span>:</strong>
+          <strong>Example response <span class="delete">404</span>:</strong>
           <div class="response">
             <pre><code>{ message: "Incomplete Body" }</code></pre>
             <pre><code>{ message: "Wrong password"}</code></pre>
@@ -137,12 +137,12 @@
         <h2 class="patch">PATCH /user detail</h2>
         <p>Update user data. </p>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="patch">PATCH</span> https://next-store-api-62m2.onrender.com/user</code>
             <br />
             <br />
-            <p><strong>Request Body:</strong></p>
+            <p><strong>Request body:</strong></p>
             <pre><code>{
     "id": "4o40o1vlyltmkxk",
     "first_name":"Stephen" , 
@@ -151,12 +151,12 @@
 }</code></pre>
           </div>
           <br />
-          <p><strong>Example Response <span class="get">201</span>:</strong></p>
+          <p><strong>Example response <span class="get">201</span>:</strong></p>
           <div class="response">
             <pre><code> { message: "Updated user detail with id XXXX"}</code></pre>
           </div>
           <br />
-          <strong>Example Response <span class="delete">404</span>:</strong>
+          <strong>Example response <span class="delete">404</span>:</strong>
           <div class="response">
             <pre><code>{ message: "Incomplete Body" }</code></pre>
             <pre><code>{ message: "Could not update user with id XXXX"}</code></pre>
@@ -173,12 +173,12 @@
         <h2 class="patch">PATCH /user password</h2>
         <p>Update user password. </p>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="patch">PATCH</span> https://next-store-api-62m2.onrender.com/user/password</code>
             <br />
             <br />
-            <p><strong>Request Body:</strong></p>
+            <p><strong>Request body:</strong></p>
             <pre><code>{
         "id": "4o40o1vlyltmkxk",
         "password":"87654321"
@@ -186,12 +186,12 @@
   </code></pre>
           </div>
           <br />
-          <p><strong>Example Response <span class="get">201</span>:</strong></p>
+          <p><strong>Example response <span class="get">201</span>:</strong></p>
           <div class="response">
             <pre><code> { message: "Updated user detail with id XXXX"}</code></pre>
           </div>
           <br />
-          <strong>Example Response <span class="delete">404</span>:</strong>
+          <strong>Example response <span class="delete">404</span>:</strong>
           <div class="response">
             <pre><code>{ message: "Incomplete Body" }</code></pre>
             <pre><code>{ message: "Could not update user with id XXXX"}</code></pre>
@@ -206,22 +206,22 @@
         <h2 class="delete">DELETE /user</h2>
         <p>Delete an existing user.</p>
         <div class="example">
-          <p><strong>Example Request:</strong></p>
+          <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="delete">DELETE</span> https://next-store-api-62m2.onrender.com/user</code>
             <br />
             <br />
-            <p><strong>Request Body:</strong></p>
+            <p><strong>Request body:</strong></p>
             <pre><code>{"id": "4o40o1vlyltmkxk"}</code></pre>
           </div>
           <br />
-          <p>Example Response <span class="get">200</span>:</p>
+          <p>Example response <span class="get">200</span>:</p>
           <div class="response">
             <pre><code>{ message: "Deleted user with id XXXX" }</code></pre>
           </div>
         </div>
         <br />
-        <p>Example Response <span class="delete">404</span>:</p>
+        <p>Example response <span class="delete">404</span>:</p>
         <div class="response">
           <pre><code>{ message: "Incomplete Body" }</code></pre>
           <pre><code>{ message: "Could not delete user with id XXXX"}</code></pre>
@@ -234,7 +234,12 @@
     crossorigin="anonymous"></script>
   <script src="../js/script.js"></script>
 </body>
-<footer>Copyright © <a href="# ">Thiago Ando de Freitas</a></footer>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2024 <a href="# ">Thiago Ando de Freitas</a></span>
+    </div>
+  </footer>
+
 </div>
 
 </html>

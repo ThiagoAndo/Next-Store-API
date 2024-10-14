@@ -24,15 +24,15 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  // dropTables and initDB is set to run every 24h after the API has been accessed, if you wish to keep the data inserted
+  // into the tables you should comment the whole if block.
   if (count === 0) {
-    console.log("chamo");
-
     setTimeout(() => {
       console.log("init");
       dropTables();
       initDB();
       count = 0;
-    }, 30 * 1000);
+    }, 24 * 60 * 60 * 1000);
     count = 1;
   }
   next();
