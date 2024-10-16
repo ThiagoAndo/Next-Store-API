@@ -72,19 +72,20 @@ router.post("/", (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  deleteAction("images", "item_id=?", [req.params.id]);
-  let ret = deleteAction("products", "id=?", [req.params.id]);
+router.delete("/", async (req, res) => {
+  const id = req.body.id;
+  deleteAction("images", "item_id=?", [id]);
+  let ret = deleteAction("products", "id=?", [id]);
   if (ret.changes > 0) {
     // restore();
     res
       .status(200)
-      .json({ message: `Deleted product with id ${req.params.id}` });
+      .json({ message: `Deleted product with id ${id}` });
     return;
   } else {
     res
       .status(200)
-      .json({ message: `Could not delete product with id ${req.params.id}` });
+      .json({ message: `Could not delete product with id ${id}` });
   }
 });
 module.exports = router;

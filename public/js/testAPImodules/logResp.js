@@ -1,15 +1,22 @@
 let print = null;
 let style = null;
+import { loadSpining } from "/js/testAPImodules/HTTP.js";
+
 export function logResp(data, endpoint) {
+  setTimeout(() => {
+    loadSpining.hide();
+  }, 500);
+
   style = `${"text-primary"}`;
   if (data?.message) style = `${"text-warning"}`;
-  if (endpoint.includes("user")) {
-    print = document.querySelector(".loguser");
+  if (endpoint.includes("user") || endpoint.includes("add")) {
+    print =
+      document.querySelector(".loguser") || document.querySelector(".logadd");
     print.innerHTML = null;
 
     const entries = Object.entries(data);
-    // console.log("entries");
-    // console.log(entries);
+    console.log("entries");
+    console.log(entries);
     printIt([entries], 0);
   }
 

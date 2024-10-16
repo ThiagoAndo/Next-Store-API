@@ -1,6 +1,9 @@
 import { logResp } from "/js/testAPImodules/logResp.js";
 
 const myModal = new bootstrap.Modal(document.getElementById("myModal"));
+export const loadSpining = new bootstrap.Modal(
+  document.getElementById("loader")
+);
 let thisMethod = "GET";
 let endpoint = null;
 let thisHeaders = null;
@@ -70,15 +73,11 @@ export function setFetch(route, end, type, auth) {
 export async function handleHTTP(obj, end = undefined, print = false) {
   let response = null;
   endpoint = end || endpoint;
+  loadSpining.show();
 
-  console.log("obj");
-  console.log(obj);
   try {
     if (thisMethod === "GET") {
-      response = await fetch(`${endpoint}`);
-    } else if (end && thisMethod === "DELETE") {
       response = await fetch(`${endpoint}`, {
-        method: thisMethod,
         headers: {
           ...thisHeaders,
         },
@@ -95,8 +94,6 @@ export async function handleHTTP(obj, end = undefined, print = false) {
 
     if (response?.ok) {
       const data = await response.json();
-      console.log(data);
-      console.log('data');
 
       if (print) {
         logResp(data, endpoint);

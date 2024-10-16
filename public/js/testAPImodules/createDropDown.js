@@ -1,10 +1,18 @@
 import { handleHTTP } from "/js/testAPImodules/HTTP.js";
 import { tidyHolder } from "/js/testAPImodules/createForm.js";
+import { loadSpining } from "/js/testAPImodules/HTTP.js";
 
 export async function dropDown() {
   const form = document.querySelector("#pro");
 
   const response = await handleHTTP(null, "products/categories");
+
+  if (response) {
+    setTimeout(() => {
+      loadSpining.hide();
+    }, 500);
+  }
+
   const content = ` <div class="dropup">
       <button
         type="button"
