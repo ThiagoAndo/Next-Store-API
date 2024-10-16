@@ -1,6 +1,9 @@
 import { handleHTTP } from "/js/testAPImodules/HTTP.js";
+
+let url = null;
 export async function createForm(id, inp, btnText, hasUrl = false) {
   const form = document.querySelector("#" + id);
+  url = hasUrl;
   let content = null;
   content = `
        ${inp
@@ -18,12 +21,12 @@ export async function createForm(id, inp, btnText, hasUrl = false) {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    formData(form, hasUrl);
+    formData(form);
   });
   form.innerHTML = content;
 }
 
-function formData(form, hasUrl) {
+function formData(form) {
   let myObj = {
     images: [],
   };
@@ -32,6 +35,7 @@ function formData(form, hasUrl) {
   const obj = Object.fromEntries(formData);
 
   const [key] = Object.keys(obj);
+  // Identifing new product and mounting the product obj
   if (obj?.image_1) {
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
@@ -42,16 +46,15 @@ function formData(form, hasUrl) {
         }
       }
     }
-    // console.log(myObj);
   } else {
     myObj = obj;
   }
-
-  handleHTTP(
-    hasUrl ? null : myObj,
-    hasUrl ? hasUrl + obj[key] : undefined,
-    true
-  );
+  // console.log(myObj);
+  if (url) {
+    handleHTTP(null, url + obj[key], true);
+  } else {
+    handleHTTP(myObj, undefined, true);
+  }
 }
 
 export function tidyHolder(i) {

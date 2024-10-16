@@ -16,7 +16,8 @@ router.get("/:id", (req, res) => {
   }
   const add = readAction("userAddress", "id = ?", [id]);
   if (add.length > 0) {
-    res.status(200).json(add);
+    const [ret] =add
+    res.status(200).json(ret);
   } else {
     res.status(200).json({ message: "not registered" });
   }
@@ -37,11 +38,11 @@ router.post("/", (req, res) => {
       res.status(201).json({ message: "Address created successufuly" });
       return;
     } else {
-      res.status(500).json({ message: "Already registered" });
+      res.status(200).json({ message: "Already registered" });
       return;
     }
   } else {
-    res.status(407).json({
+    res.status(200).json({
       message: `Incomplete Body`,
     });
   }
@@ -51,7 +52,7 @@ router.patch("/", async (req, res) => {
   if (isCorret(5, req.body)) {
     const id = req.body.id;
     if (!isValid(null, id)) {
-      res.status(407).json({
+      res.status(200).json({
         message: `There is no user with id: ${id}`,
       });
       return;
@@ -77,7 +78,7 @@ router.patch("/", async (req, res) => {
           .json({ message: `Could not update address with id ${address.id}` });
     return;
   } else {
-    res.status(407).json({
+    res.status(200).json({
       message: `Incomplete Body`,
     });
   }
