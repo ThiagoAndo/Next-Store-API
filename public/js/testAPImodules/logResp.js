@@ -6,6 +6,27 @@ export function logResp(data, endpoint) {
   setTimeout(() => {
     loadSpining.hide();
   }, 500);
+  console.log(endpoint);
+  console.log("endpoint");
+  console.log(endpoint.startsWith("cart"));
+
+    if (endpoint.includes("cart") || endpoint.startsWith("cart")) {
+      print = document.querySelector(".logcart");
+      print.innerHTML = null;
+
+      console.log("chamo");
+
+      const { items } = data;
+      if (items) {
+        items.forEach((p, i) => {
+          const entries = Object.entries(p);
+          printIt([entries], i);
+        });
+      } else {
+        const entries = Object.entries(data);
+        printIt([entries], 0);
+      }
+    }
 
   style = `${"text-primary"}`;
   if (data?.message) style = `${"text-warning"}`;
@@ -52,24 +73,15 @@ export function logResp(data, endpoint) {
       printIt([arr], 0);
     }
   }
-  if (endpoint.includes("cart")) {
-    print = document.querySelector(".logcart");
-    print.innerHTML = null;
 
-    console.log("chamo");
-
-    const { items } = data;
-    items.forEach((p, i) => {
-      const entries = Object.entries(p);
-      printIt([entries], i);
-    });
-  }
 }
 
 function printIt(entries, i) {
   print.innerHTML += ` <table class="table table-sm">
    <thead>
-     <h2 class="fs-6 mb-2 ${i != 0 ?"text-muted":""}">   ${i === 0 ? " API response" : "# " + (i + 1)}</h2>
+     <h2 class="fs-6 mb-2 ${i != 0 ? "text-muted" : ""}">   ${
+    i === 0 ? " API response" : "# " + (i + 1)
+  }</h2>
       <tr>
       <th class="text-body-secondary" scope="col">#</th>
       <th class="text-body-secondary" style="min-width: 100px"=scope="col">Object key</th>

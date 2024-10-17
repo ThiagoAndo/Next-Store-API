@@ -10,7 +10,7 @@ export async function createForm(id, inp, btnText, hasUrl = false) {
          .map((i) => {
            return `<div class="form-floating mb-3">
                      <input type=${i} class="form-control" id=${i} name=${i} 
-                      placeholder=${tidyHolder(i)} required>
+                      placeholder=${tidyHolder(i)} >
                       <label for=${i}>${tidyHolder(i)}</label>
                   </div>`;
          })
@@ -34,8 +34,7 @@ function formData(form) {
   const formData = new FormData(form);
   const obj = Object.fromEntries(formData);
 
-  const [key] = Object.keys(obj);
-  // Identifing new product and mounting the product obj
+  // Identifing form new product and mounting the product obj
   if (obj?.image_1) {
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
@@ -46,12 +45,24 @@ function formData(form) {
         }
       }
     }
+  } else if (obj?.product_id && obj?.quantity) {
+    // Identifing for add item to caart  mounting the cart obj
+    const { user_id } = obj;
+    const { name, price, product_id, quantity } = obj;
+    myObj = { user_id, item: { name, price, id: product_id, quantity } };
   } else {
     myObj = obj;
   }
-  // console.log(myObj);
   if (url) {
-    handleHTTP(null, url + obj[key], true);
+    let route = null;
+    // Mounting the dynamic routes
+    if (Object.keys(obj).length > 1) {
+      route = Object.keys(obj)[0] + "=" + Object.values(obj)[0]+"&"+Object.keys(obj)[1] + "=" + Object.values(obj)[1];
+    } else {
+      const [key] = Object.keys(obj);
+      route = obj[key];
+    }
+    handleHTTP(null, url + route, true);
   } else {
     handleHTTP(myObj, undefined, true);
   }

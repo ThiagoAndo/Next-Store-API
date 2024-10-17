@@ -8,9 +8,12 @@ import {
   getUser,
   password,
   update,
-  deleteUser,
+  onlyId,
   newProduct,
   userAdd,
+  cartProduct,
+  cartInp,
+  cartPur,
 } from "/js/testAPImodules/formFields.js";
 
 // localStorage.clear();
@@ -40,7 +43,7 @@ proBtn.forEach((btn) => {
         dropDown();
         break;
       case "byI":
-        createForm("pro", deleteUser, "Fetch", "products/byid/");
+        createForm("pro", onlyId, "Fetch", "products/byid/");
         setFetch("product", "byid/", "g", false);
         break;
       case "new":
@@ -48,7 +51,7 @@ proBtn.forEach((btn) => {
         setFetch("product", "", "p", true);
         break;
       case "delete":
-        createForm("pro", deleteUser, "Delete");
+        createForm("pro", onlyId, "Delete");
         setFetch("product", "", "d", true);
         break;
       default:
@@ -83,7 +86,7 @@ userBtn.forEach((btn) => {
         break;
       case "delete":
         id && modal("user");
-        createForm("user", deleteUser, "Delete");
+        createForm("user", onlyId, "Delete");
         setFetch("user", "", "d", true);
         break;
       default:
@@ -110,7 +113,7 @@ addBtn.forEach((btn) => {
         break;
       case "getAdd":
         id && modal("user");
-        createForm("add", deleteUser, "Fetch", "add/");
+        createForm("add", onlyId, "Fetch", "add/");
         setFetch("address", "", "g", true);
         break;
       default:
@@ -122,34 +125,38 @@ addBtn.forEach((btn) => {
 cart.forEach((btn) => {
   btn.addEventListener("click", () => {
     const id = localStorage.getItem("id");
-
     const endPoint = btn.getAttribute("id");
     switch (endPoint) {
       case "add":
         console.log(endPoint);
         id && modal("user");
-        createForm("cart", deleteUser, "Sing in");
-        setFetch("user", "get", "p", false);
+        createForm("cart", cartProduct, "Add product");
+        setFetch("cart", "", "p", true);
         break;
       case "notP":
         id && modal("user");
-        createForm("cart", deleteUser, "Fetch", "cart/");
-        setFetch("cart", "new", "g", false);
+        createForm("cart", onlyId, "Fetch", "cart/");
+        setFetch("cart", "", "g", false);
+        break;
+      case "purchased":
+        id && modal("user");
+        createForm("cart", cartPur, "Fetch", "cart/purchased/params?");
+        setFetch("cart", "", "g", true);
         break;
       case "update":
-        id && modal("user");
-        createForm("cart", password, "Sing in");
-        setFetch("user", "password", "pc", true);
-        break;
+        // id && modal("user");
+        // createForm("cart", cartInp, "Update");
+        // setFetch("cart", "item", "pc", true);
+        // break;
       case "delete":
         id && modal("user");
-        createForm("cart", update, "Sing in");
-        setFetch("user", "", "pc", true);
+        createForm("cart", cartInp[0], "Delete");
+        setFetch("cart", "", "d", true);
         break;
       case "delItem":
-        id && modal("user");
-        createForm("cart", deleteUser, "Delete");
-        setFetch("user", "", "d", true);
+        // id && modal("user");
+        // createForm("cart", onlyId, "Delete");
+        // setFetch("cart", "", "d", true);
         break;
       default:
         console.log("Something wrong with btn " + endPoint);
