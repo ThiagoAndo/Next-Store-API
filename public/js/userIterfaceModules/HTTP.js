@@ -1,4 +1,4 @@
-import { logResp } from "/js/testAPImodules/logResp.js";
+import { logResp } from "/js/userIterfaceModules/logResp.js";
 
 const myModal = new bootstrap.Modal(document.getElementById("myModal"));
 export const loadSpining = new bootstrap.Modal(
@@ -74,7 +74,8 @@ export async function handleHTTP(obj, end = undefined, print = false) {
   let response = null;
   endpoint = end || endpoint;
   loadSpining.show();
-
+  // console.log(thisHeaders);
+  // console.log("thisHeaders");
   try {
     if (thisMethod === "GET") {
       response = await fetch(`${endpoint}`, {
@@ -94,7 +95,6 @@ export async function handleHTTP(obj, end = undefined, print = false) {
 
     if (response?.ok) {
       const data = await response.json();
-
       if (print) {
         logResp(data, endpoint);
       } else {

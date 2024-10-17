@@ -1,24 +1,30 @@
-import { createForm } from "/js/testAPImodules/createForm.js";
-import { dropDown } from "/js/testAPImodules/createDropDown.js";
-import { setFetch } from "/js/testAPImodules/HTTP.js";
-import { mode } from "/js/testAPImodules/mode.js";
-import { modal } from "/js/testAPImodules/modal.js";
+import { createForm } from "/js/userIterfaceModules/createForm.js";
+import { dropDown } from "/js/userIterfaceModules/createDropDown.js";
+import { setFetch } from "/js/userIterfaceModules/HTTP.js";
+import { mode } from "/js/userIterfaceModules/mode.js";
+import { modal } from "/js/userIterfaceModules/modal.js";
 import {
   newUser,
   getUser,
   password,
   update,
-  deleteUser,
+  onlyId,
   newProduct,
   userAdd,
-} from "/js/testAPImodules/formFields.js";
+  cartProduct,
+  cartInp,
+  cartPur,
+  cartDel,
+  cartUpdate,
+} from "/js/userIterfaceModules/formFields.js";
 
-// localStorage.clear();
+localStorage.clear();
 mode();
 
 const userBtn = document.querySelectorAll(".user-btn");
 const proBtn = document.querySelectorAll(".pro-btn");
 const addBtn = document.querySelectorAll(".add-btn");
+const cart = document.querySelectorAll(".cart-btn");
 
 proBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -39,7 +45,7 @@ proBtn.forEach((btn) => {
         dropDown();
         break;
       case "byI":
-        createForm("pro", deleteUser, "Fetch", "products/byid/");
+        createForm("pro", onlyId, "Fetch", "products/byid/");
         setFetch("product", "byid/", "g", false);
         break;
       case "new":
@@ -47,7 +53,7 @@ proBtn.forEach((btn) => {
         setFetch("product", "", "p", true);
         break;
       case "delete":
-        createForm("pro", deleteUser, "Delete");
+        createForm("pro", onlyId, "Delete");
         setFetch("product", "", "d", true);
         break;
       default:
@@ -82,7 +88,7 @@ userBtn.forEach((btn) => {
         break;
       case "delete":
         id && modal("user");
-        createForm("user", deleteUser, "Delete");
+        createForm("user", onlyId, "Delete");
         setFetch("user", "", "d", true);
         break;
       default:
@@ -109,8 +115,49 @@ addBtn.forEach((btn) => {
         break;
       case "getAdd":
         id && modal("user");
-        createForm("add", deleteUser, "Fetch", "add/");
+        createForm("add", onlyId, "Fetch", "add/");
         setFetch("address", "", "g", true);
+        break;
+      default:
+        console.log("Something wrong with btn " + endPoint);
+    }
+  });
+});
+
+cart.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const id = localStorage.getItem("id");
+    const endPoint = btn.getAttribute("id");
+    switch (endPoint) {
+      case "add":
+        id && modal("user");
+        createForm("cart", cartProduct, "Add product");
+        setFetch("cart", "", "p", true);
+        break;
+      case "notP":
+        id && modal("user");
+        createForm("cart", onlyId, "Fetch", "cart/");
+        setFetch("cart", "", "g", false);
+        break;
+      case "purchased":
+        id && modal("user");
+        createForm("cart", cartPur, "Fetch", "cart/purchased/params?");
+        setFetch("cart", "", "g", true);
+        break;
+      case "update":
+        id && modal("user");
+        createForm("cart", cartUpdate, "Update");
+        setFetch("cart", "", "pc", true);
+        break;
+      case "delete":
+        id && modal("user");
+        createForm("cart", cartDel, "Delete");
+        setFetch("cart", "", "d", true);
+        break;
+      case "delItem":
+        id && modal("user");
+        createForm("cart", cartInp, "Delete");
+        setFetch("cart", "item", "d", true);
         break;
       default:
         console.log("Something wrong with btn " + endPoint);

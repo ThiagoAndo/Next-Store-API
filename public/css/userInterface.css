@@ -20,7 +20,7 @@
       margin: auto;
     }
 
-    .dropup>button {
+    .dropup > button {
       width: 100%;
     }
 
@@ -37,7 +37,7 @@
       justify-content: space-between;
     }
 
-    .wait_data {
+    .spinning {
       width: 50%;
       height: 30vh;
       background-image: url("/assets/Eclipse-1s-200px.svg");

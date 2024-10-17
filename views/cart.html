@@ -53,9 +53,7 @@
         <li>There is no restriction for the amount of cart <strong><code
               style="color: white;">{bought:1}</code></strong>
           for client.</li>
-        <li>User id and date<strong><code style="color: white;">{creation_at: 05-07-2024h15:37:29}</code></strong> must
-          be
-          provided.</li>
+        <li>User id must be provided.</li>
         <li>A complete JSON contaning all fields and values must be passed to the API.</li>
       </ul>
       <br />
@@ -159,14 +157,13 @@
             <br />
             <p><strong>Request body:</strong></p>
             <pre><code>{
-        "id":"4jgm2z11gfjlyrfbmsl", <span class="delete">//=> THIS IS THE USER ID </span>
+        "user_id":"4jgm2z11gfjlyrfbmsl", <span class="delete">//=> THIS IS THE USER ID </span>
         "item":{
         "id": "8",
         "quantity": "2",
         "createAt": "05-07-2024h15:37:29", //This is the ID of the cart in the database
         "price":"129.99",
-        "name":"Chanel Coco Noir Eau De"
-        }
+        "name":"Chanel Coco Noir Eau De" }
 }</code></pre>
           </div>
           <p>
@@ -180,7 +177,9 @@
           <strong>Example response <span class="delete">407</span>:</strong>
           </p>
           <div class="response">
+
             <pre><code>{ message: "Incomplete Body" }</code></pre>
+            <pre><code>{ "message": "There is already a product with id: 82 in the cart" }</code></pre>
             <pre><code>{ message: "There is no pruduct with id: xxxx or User with id: xxxx"}</code></pre>
             <pre><code>{ message: "UNIQUE constraint failed: products.title"}</code></pre>
           </div>
@@ -190,27 +189,65 @@
       <br />
       <br />
       <div class="endpoint">
-        <h2 class="delete">DELETE /cart </h2>
-        <p>Delete cart.</p>
+        <h2 class="patch">PATCH /cart item quantity</h2>
+        <p>Update user data. </p>
         <div class="example">
           <p><strong>Example request:</strong></p>
           <div class="request">
-            <code><span class="delete">DELETE</span>
-                https://next-store-api-62m2.onrender.com/cart</code>
+            <code><span class="patch">PATCH</span> https://next-store-api-62m2.onrender.com/cart</code>
             <br />
             <br />
             <p><strong>Request body:</strong></p>
             <pre><code>{
-"cart":"4jgm2z1bxslyle2o5n", <span class="delete">//=> THIS IS THE USER ID. </span>
-"op":0 <span class="delete">                     //=> THE OPTION 0 DELETE THE CART.</span>
+        cart:{
+            "id": "4o40o1vlyltmkxk",
+            "item_id": "9",
+            "quantity": 454
+            }
+}</code></pre>
+          </div>
+          <br />
+          <p><strong>Example response <span class="get">201</span>:</strong></p>
+          <div class="response">
+            <pre><code> { message: "Updated user detail with id XXXX"}</code></pre>
+          </div>
+          <br />
+          <strong>Example response <span class="delete">404</span>:</strong>
+          <div class="response">
+          <pre><code>{ message: "Incomplete Body" }</code></pre>
+          <pre><code>{ "message": "There is already a product with id: 82 in the cart" }</code></pre>
+          <pre><code>{ message: "Not found"}</code></pre>
+          <pre><code>{ message: "Updated item with id XXXX"}</code></pre>
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+      <br />
+      <div class="endpoint">
+        <h2 class="delete">DELETE /item from cart</h2>
+        <p>Delete product from cart.</p>
+        <div class="example">
+          <p><strong>Example request:</strong></p>
+          <div class="request">
+            <code><span class="delete">DELETE</span>
+                  https://next-store-api-62m2.onrender.com/cart/item</code>
+            <br />
+            <br />
+            <p><strong>Request body:</strong></p>
+            <pre><code>{
+  "cart":{
+  "user_id":"4jgm2z1bxslyle2o5n",
+  "item_id":"9"
+  },
 }</code></pre>
           </div>
           <p>
             <br />
-            <strong>Example response <span class="get">200</span>:</strong>
+            <strong>Example response <span class="get">201</span>:</strong>
           </p>
           <div class="response">
-            <pre><code>{ message: "Cart deleted" }</code></pre>
+            <pre><code>{ message: "Item deleted" }</code></pre>
           </div>
           <br />
           <strong>Example response <span class="delete">407</span>:</strong>
@@ -225,27 +262,21 @@
       <br />
       <br />
       <div class="endpoint">
-        <h2 class="delete">DELETE /product from cart</h2>
-        <p>Delete product from cart.</p>
+        <h2 class="delete">DELETE /cart </h2>
+        <p>Delete cart.</p>
         <div class="example">
           <p><strong>Example request:</strong></p>
           <div class="request">
             <code><span class="delete">DELETE</span>
-                  https://next-store-api-62m2.onrender.com/cart</code>
+                            https://next-store-api-62m2.onrender.com/cart</code>
             <br />
             <br />
             <p><strong>Request body:</strong></p>
-            <pre><code>{
-  "cart":{
-  "user_id":"4jgm2z1bxslyle2o5n",
-  "item_id":"9"
-  },
-  "op":1 <span class="delete">//=> THE OPTION 1 DELETE A PRODUCT FROM THE CART.</span>
-}</code></pre>
+            <pre><code>{ "user_id":"4jgm2z1bxslyle2o5n" }</code></pre>
           </div>
           <p>
             <br />
-            <strong>Example response <span class="get">201</span>:</strong>
+            <strong>Example response <span class="get">200</span>:</strong>
           </p>
           <div class="response">
             <pre><code>{ message: "Cart deleted" }</code></pre>
@@ -265,11 +296,11 @@
     crossorigin="anonymous"></script>
   <script src="../js/script.js"></script>
 </body>
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
-      <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2024 <a href="# ">Thiago Ando de Freitas</a></span>
-    </div>
-  </footer>
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+  <div class="col-md-4 d-flex align-items-center">
+    <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2024 <a href="# ">Thiago Ando de Freitas</a></span>
+  </div>
+</footer>
 </div>
 
 </html>

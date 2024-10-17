@@ -1,26 +1,22 @@
 let print = null;
 let style = null;
-import { loadSpining } from "/js/testAPImodules/HTTP.js";
+import { loadSpining } from "/js/userIterfaceModules/HTTP.js";
 
 export function logResp(data, endpoint) {
   setTimeout(() => {
     loadSpining.hide();
   }, 500);
-
-  style = `${"text-primary"}`;
   if (data?.message) style = `${"text-warning"}`;
-  if (endpoint.includes("user") || endpoint.includes("add")) {
-    print =
-      document.querySelector(".loguser") || document.querySelector(".logadd");
-    print.innerHTML = null;
-
-    const entries = Object.entries(data);
-    console.log("entries");
-    console.log(entries);
-    printIt([entries], 0);
+  style = `${"text-primary"}`;
+  if (endpoint.startsWith("user")) {
+    getEntries("user", data);
   }
 
-  if (endpoint.includes("product")) {
+  if (endpoint.startsWith("add")) {
+    getEntries("add", data);
+  }
+
+  if (endpoint.startsWith("product")) {
     print = document.querySelector(".logpro");
     print.innerHTML = null;
     const { products } = data;
@@ -55,13 +51,36 @@ export function logResp(data, endpoint) {
       printIt([arr], 0);
     }
   }
+
+  if (endpoint.startsWith("cart")) {
+    print = document.querySelector(".logcart");
+    print.innerHTML = null;
+    const { items } = data;
+    if (items) {
+      items.forEach((p, i) => {
+        const entries = Object.entries(p);
+        printIt([entries], i);
+      });
+    } else {
+      const entries = Object.entries(data);
+      printIt([entries], 0);
+    }
+  }
+}
+
+function getEntries(log, data) {
+  print = document.querySelector(`.log${log}`);
+  print.innerHTML = null;
+  const entries = Object.entries(data);
+  printIt([entries], 0);
 }
 
 function printIt(entries, i) {
-  // console.log("chamo");
   print.innerHTML += ` <table class="table table-sm">
    <thead>
-     <h2 class="fs-6 mb-4">   ${i === 0 ? " API response" : "# " + (i + 1)}</h2>
+     <h2 class="fs-6 mb-2 ${i != 0 ? "text-muted" : ""}">   ${
+    i === 0 ? " API response" : "# " + (i + 1)
+  }</h2>
       <tr>
       <th class="text-body-secondary" scope="col">#</th>
       <th class="text-body-secondary" style="min-width: 100px"=scope="col">Object key</th>

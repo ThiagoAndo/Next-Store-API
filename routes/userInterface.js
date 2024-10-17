@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("testApi.html");
+  res.render("UserInterface.html");
 });
 
 module.exports = router;

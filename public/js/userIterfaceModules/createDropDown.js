@@ -1,6 +1,6 @@
-import { handleHTTP } from "/js/testAPImodules/HTTP.js";
-import { tidyHolder } from "/js/testAPImodules/createForm.js";
-import { loadSpining } from "/js/testAPImodules/HTTP.js";
+import { handleHTTP } from "/js/userIterfaceModules/HTTP.js";
+import { tidyHolder } from "/js/userIterfaceModules/createForm.js";
+import { loadSpining } from "/js/userIterfaceModules/HTTP.js";
 
 export async function dropDown() {
   const form = document.querySelector("#pro");

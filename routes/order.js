@@ -32,7 +32,7 @@ router.post("/", (req, res) => {
     const ret = insertOrder(id, name, email, cart);
     ret.changes > 0
       ? res.status(201).json({ message: "Invoice created" })
-      : res.status(500).json({ message: "An error has occurred" });
+      : res.status(500).json({ message: "User does not have a cart to complete the order" });
     return;
   } else {
     res.status(407).json({

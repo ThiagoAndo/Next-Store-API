@@ -6,7 +6,7 @@ const cart = require("./routes/cart");
 const add = require("./routes/address");
 const order = require("./routes/order");
 const doc = require("./routes/docs");
-const test = require("./routes/testApi");
+const userInterface = require("./routes/userInterface");
 const { initDB, dropTables } = require("./initDb");
 const app = express();
 
@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/doc", doc);
-app.use("/test", test);
+app.use("/userInterface", userInterface);
 app.use("/products", products);
 app.use("/user", user);
 app.use("/cart", cart);
@@ -55,9 +55,7 @@ app.get("/doc", (req, res) => {
   res.render("index.html");
 });
 
-app.get("/test", (req, res) => {
-  res.render("index.html");
-});
+
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;
