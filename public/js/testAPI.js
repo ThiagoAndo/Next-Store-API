@@ -19,6 +19,7 @@ mode();
 const userBtn = document.querySelectorAll(".user-btn");
 const proBtn = document.querySelectorAll(".pro-btn");
 const addBtn = document.querySelectorAll(".add-btn");
+const cart = document.querySelectorAll(".cart-btn");
 
 proBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -111,6 +112,44 @@ addBtn.forEach((btn) => {
         id && modal("user");
         createForm("add", deleteUser, "Fetch", "add/");
         setFetch("address", "", "g", true);
+        break;
+      default:
+        console.log("Something wrong with btn " + endPoint);
+    }
+  });
+});
+
+cart.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const id = localStorage.getItem("id");
+
+    const endPoint = btn.getAttribute("id");
+    switch (endPoint) {
+      case "add":
+        console.log(endPoint);
+        id && modal("user");
+        createForm("cart", deleteUser, "Sing in");
+        setFetch("user", "get", "p", false);
+        break;
+      case "notP":
+        id && modal("user");
+        createForm("cart", deleteUser, "Fetch", "cart/");
+        setFetch("cart", "new", "g", false);
+        break;
+      case "update":
+        id && modal("user");
+        createForm("cart", password, "Sing in");
+        setFetch("user", "password", "pc", true);
+        break;
+      case "delete":
+        id && modal("user");
+        createForm("cart", update, "Sing in");
+        setFetch("user", "", "pc", true);
+        break;
+      case "delItem":
+        id && modal("user");
+        createForm("cart", deleteUser, "Delete");
+        setFetch("user", "", "d", true);
         break;
       default:
         console.log("Something wrong with btn " + endPoint);

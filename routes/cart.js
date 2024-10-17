@@ -3,10 +3,8 @@ const { readAction, createAction, updateAction } = require("../CRUD/actions");
 const { rearranging, deleleteCart } = require("../actions/cartAction");
 const { isValid } = require("../util/inputCheck");
 const router = express.Router();
-// require("../helpers/routeLock");
 const { checkAuth } = require("../util/auth");
 const { isCorret } = require("../helpers/validate");
-
 router.get("/:id", async (req, res) => {
   let items;
   let user_id = req.params.id;
@@ -47,6 +45,7 @@ router.post("/", async (req, res) => {
     });
     return;
   }
+  req.body;
   const data = rearranging(req.body);
   if (data) {
     createAction("cart", { ...data });
@@ -78,7 +77,7 @@ router.patch("/", async (req, res) => {
 });
 router.delete("/", async (req, res) => {
   if (isCorret(2, req.body)) {
-    let ret = deleleteCart(req.body.op, req.body.cart);
+    let ret = deleleteCart(req.body.delete, req.body.cart);
     ret?.changes
       ? res.status(200).json({ message: `Cart deleted` })
       : res.status(200).json({ message: `Not found` });

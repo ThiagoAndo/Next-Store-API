@@ -13,10 +13,7 @@ export function logResp(data, endpoint) {
     print =
       document.querySelector(".loguser") || document.querySelector(".logadd");
     print.innerHTML = null;
-
     const entries = Object.entries(data);
-    console.log("entries");
-    console.log(entries);
     printIt([entries], 0);
   }
 
@@ -55,13 +52,24 @@ export function logResp(data, endpoint) {
       printIt([arr], 0);
     }
   }
+  if (endpoint.includes("cart")) {
+    print = document.querySelector(".logcart");
+    print.innerHTML = null;
+
+    console.log("chamo");
+
+    const { items } = data;
+    items.forEach((p, i) => {
+      const entries = Object.entries(p);
+      printIt([entries], i);
+    });
+  }
 }
 
 function printIt(entries, i) {
-  // console.log("chamo");
   print.innerHTML += ` <table class="table table-sm">
    <thead>
-     <h2 class="fs-6 mb-4">   ${i === 0 ? " API response" : "# " + (i + 1)}</h2>
+     <h2 class="fs-6 mb-2 ${i != 0 ?"text-muted":""}">   ${i === 0 ? " API response" : "# " + (i + 1)}</h2>
       <tr>
       <th class="text-body-secondary" scope="col">#</th>
       <th class="text-body-secondary" style="min-width: 100px"=scope="col">Object key</th>

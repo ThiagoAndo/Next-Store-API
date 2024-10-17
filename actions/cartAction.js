@@ -1,4 +1,6 @@
 const { readAction, deleteAction } = require("../CRUD/actions");
+const { getCurrentDate } = require("../helpers/dateGenerator");
+
 function isProduct(id) {
   const product = readAction("products", "id=?", [id]);
   const ret = product.length > 0;
@@ -6,7 +8,8 @@ function isProduct(id) {
 }
 function rearranging(body) {
   const { item, id: user_id } = body;
-  let { id: item_id, name, price, quantity: qnt, createAt: creation_at } = item;
+  let { id: item_id, name, price, quantity: qnt } = item;
+  const creation_at = getCurrentDate();
   if (user_id && item_id && qnt && price && name && creation_at) {
     return {
       user_id,
@@ -24,10 +27,10 @@ function rearranging(body) {
 function deleleteCart(option, cart) {
   let ret;
   switch (option) {
-    case 0:
+    case "cart":
       ret = deleteAction("cart", "user_id=? AND bought=?", [cart, 0]);
       break;
-    case 1:
+    case "item":
       ret = deleteAction("cart", "item_id = ? AND user_id=?", [
         cart.item_id,
         cart.user_id,
