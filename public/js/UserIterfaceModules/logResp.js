@@ -1,6 +1,6 @@
 let print = null;
 let style = null;
-import { loadSpining } from "/js/userIterfaceModules/HTTP.js";
+import { loadSpining } from "/js/UserIterfaceModules/HTTP.js";
 
 export function logResp(data, endpoint) {
   setTimeout(() => {
@@ -66,6 +66,21 @@ export function logResp(data, endpoint) {
       printIt([entries], 0);
     }
   }
+
+  if (endpoint.startsWith("order")) {
+    print = document.querySelector(".logorder");
+    print.innerHTML = null;
+    if (data?.length >= 1) {
+      data.forEach((p, i) => {
+        const entries = Object.entries(p);
+        printIt([entries], i);
+      });
+    } else {
+      const entries = Object.entries(data);
+      printIt([entries], 0);
+    }
+  }
+
 }
 
 function getEntries(log, data) {

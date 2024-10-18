@@ -17,22 +17,26 @@ router.post("/", (req, res) => {
 
   if (isCorret(bodylen, req.body)) {
     const id = req.body.id;
-    const name = req.body.name;
-    const email = req.body.email;
+    const first_name = req.body.first_name;
+    const last_name = req.body.last_name;
+    const name = first_name + " " + last_name;
+    const email_address = req.body.email;
     const cart = req.body?.cart || false;
     if (!isName(name)) {
       res.status(500).json({
         message: "Name is wrong. Make sure to enter first and last name only",
       });
       return;
-    } else if (!isEmail(email)) {
+    } else if (!isEmail(email_address)) {
       res.status(500).json({ message: "Email is not valid" });
       return error;
     }
-    const ret = insertOrder(id, name, email, cart);
+    const ret = insertOrder(id, name, email_address, cart);
     ret.changes > 0
       ? res.status(201).json({ message: "Invoice created" })
-      : res.status(500).json({ message: "User does not have a cart to complete the order" });
+      : res
+          .status(500)
+          .json({ message: "User does not have a cart to complete the order" });
     return;
   } else {
     res.status(407).json({

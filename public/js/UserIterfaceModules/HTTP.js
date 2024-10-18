@@ -1,4 +1,4 @@
-import { logResp } from "/js/userIterfaceModules/logResp.js";
+import { logResp } from "/js/UserIterfaceModules/logResp.js";
 
 const myModal = new bootstrap.Modal(document.getElementById("myModal"));
 export const loadSpining = new bootstrap.Modal(

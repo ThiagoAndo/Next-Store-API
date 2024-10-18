@@ -1,4 +1,5 @@
-import { handleHTTP } from "/js/userIterfaceModules/HTTP.js";
+import { handleHTTP } from "/js/UserIterfaceModules/HTTP.js";
+import { cart } from "/js/UserIterfaceModules/variables.js";
 let url = null;
 let form = null;
 
